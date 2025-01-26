@@ -51,17 +51,18 @@ soup = BeautifulSoup(ex, 'html.parser')
 soup = soup.find_all(True)
 print(len(soup))
 
-pdf = FPDF()
-pdf.add_page()
-pdf.set_font('Arial', 'B', 16)
 
 classes = set()
 for tag in soup:
     if 'class' in tag.attrs:
-        text = tag
-        pdf.cell(200, 10, txt=tag, ln=True)
-        pdf.output('webdata.pdf')
-        print(tag.attrs['class'])
+        classes.update(tag['class'])
+
+with open('classes.txt', 'w') as file:
+    for cls in classes:
+        file.write(cls + '\n')
+
+        
+        # print(classes)
     # print(tag.attrs)
 # def get_classes():
 #     elements = driver.page_source
